@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ec23803bf51e23241a5cdf8025b55445
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 330086
+  packageName: WindEffectTree
+  packageVersion: 1.0
+  assetPath: Assets/WindEffectTree/Scripts/DemoTree.cs
+  uploadId: 780930

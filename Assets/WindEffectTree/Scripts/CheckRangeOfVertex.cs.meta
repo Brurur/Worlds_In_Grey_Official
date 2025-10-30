@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 25f899d3df1700a44a75d0ab7a912fbc
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 330086
+  packageName: WindEffectTree
+  packageVersion: 1.0
+  assetPath: Assets/WindEffectTree/Scripts/CheckRangeOfVertex.cs
+  uploadId: 780930

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5f85a064fcc1acc43ba0e0754e809101
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 330086
+  packageName: WindEffectTree
+  packageVersion: 1.0
+  assetPath: Assets/WindEffectTree/Materials/WinTree1.mat
+  uploadId: 780930

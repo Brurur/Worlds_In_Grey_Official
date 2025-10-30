@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 325ae87c331f7b841a494f7a3f2dd139
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 330086
+  packageName: WindEffectTree
+  packageVersion: 1.0
+  assetPath: Assets/WindEffectTree/Shaders/WindTreeNoise.shader
+  uploadId: 780930

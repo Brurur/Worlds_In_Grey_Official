@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5faa07000e955ce43951a3aa628ad16b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 330086
+  packageName: WindEffectTree
+  packageVersion: 1.0
+  assetPath: Assets/WindEffectTree/Shaders/WindTreeWobble.shader
+  uploadId: 780930
