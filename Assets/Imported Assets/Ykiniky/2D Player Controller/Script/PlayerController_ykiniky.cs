@@ -7,29 +7,33 @@ namespace YkinikY
     {
         [Header("(c) Ykiniky")]
         [Header("Movement")]
-        public bool canMove = true;
-        public bool canJump = true;
+        [SerializeField] bool canMove = true;
+        [SerializeField] bool canJump = true;
 
         [Header("Movement Settings")]
-        public float maxSpeed = 5f;
-        public float acceleration = 12f;
-        public float deceleration = 10f;
+        [SerializeField] float maxSpeed = 5f;
+        [SerializeField] float acceleration = 12f;
+        [SerializeField] float deceleration = 10f;
 
         private float currentSpeed = 0f;
 
         [Header("Camera")]
-        public PlayerCameraFollow_ykiniky playerCameraFollow;
-        public Vector2 lastCheckpoint;
+        [SerializeField] PlayerCameraFollow_ykiniky playerCameraFollow;
+        [SerializeField] Vector2 lastCheckpoint;
 
+        [Header("Particle")]
+        [SerializeField] ParticleSystem trail;
+        [SerializeField] ParticleSystem jumpDust;
+ 
         Rigidbody2D rb;
 
         // Flip (scale-based "paper" flip)
         private bool facingRight = true;
         private bool isFlipping = false;
         [Header("Flip Settings")]
-        public float flipDuration = 0.18f;      // total time of the flip
-        [Range(0.0f, 1.0f)] public float minWidth = 0.05f; // how thin during flip
-        [Range(1.0f, 1.5f)] public float flipSquash = 1.1f; // vertical squash at thinnest point
+        [SerializeField] float flipDuration = 0.18f;      // total time of the flip
+        [Range(0.0f, 1.0f)] [SerializeField] float minWidth = 0.05f; // how thin during flip
+        [Range(1.0f, 1.5f)] [SerializeField] float flipSquash = 1.1f; // vertical squash at thinnest point
 
         // store base scale so we don't overwrite other scales
         private Vector3 baseLocalScale;
@@ -46,8 +50,25 @@ namespace YkinikY
         {
             if (canMove)
                 HandleInput();
+                HandleTrail();
 
             HandleCameraFollow();
+        }
+
+        void HandleTrail()
+        {
+            bool moving = Mathf.Abs(rb.linearVelocity.x) > 0.1f;
+
+            if (moving && canJump)
+            {
+                if (!trail.isPlaying)
+                    trail.Play();
+            }
+            else
+            {
+                if (trail.isPlaying)
+                    trail.Stop();
+            }
         }
 
         void HandleInput()
@@ -79,15 +100,16 @@ namespace YkinikY
             }
 
             // Jump
-            if ((Input.GetKey(KeyCode.Space) && canJump) ||
-                (Input.GetKey(KeyCode.W) && canJump))
+            if ((Input.GetKey(KeyCode.Space) && canJump) || (Input.GetKey(KeyCode.W) && canJump))
             {
+                jumpDust.Play();
                 canJump = false;
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 6);
             }
 
             if (Input.GetButton("Jump") && canJump)
             {
+                jumpDust.Play();
                 canJump = false;
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 6);
             }
@@ -209,6 +231,19 @@ namespace YkinikY
         {
             if (collision.gameObject.name == "Checkpoint")
                 lastCheckpoint = transform.position;
+
+            if (collision.gameObject.tag == "Text Area")
+            {
+                playerCameraFollow.Zoom();
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision) 
+        {
+        if (collision.gameObject.tag == "Text Area")
+            {
+                playerCameraFollow.Unzoom();
+            }
         }
 
         public void TeleportPlayerX(float playerX)
