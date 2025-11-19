@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using DG.Tweening;
+using YkinikY;
+using FirstGearGames.SmoothCameraShaker;
 
 public class Player_Animation : MonoBehaviour
 {
@@ -33,11 +35,13 @@ public class Player_Animation : MonoBehaviour
     [SerializeField] Volume greenVolume;
     [SerializeField] Transform playerCamera;
     [SerializeField] TypeWriter levelFinishedText;
+    [SerializeField] ShakeData bigShake;
 
     private Vector3 baseScale;
     private Audio_Manager audio_Manager;
     private CanvasGroup fadeOverlay;
     private bool finishedLevel = false;
+    private PlayerController_ykiniky playerController;
 
     void Start()
     {
@@ -46,6 +50,7 @@ public class Player_Animation : MonoBehaviour
         baseScale = whole.localScale;
         audio_Manager = GameObject.Find("Audio Manager").GetComponent<Audio_Manager>();
         fadeOverlay = GameObject.Find("Fade Overlay").GetComponent<CanvasGroup>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController_ykiniky>();
     }
 
     void Update()
@@ -118,9 +123,11 @@ public class Player_Animation : MonoBehaviour
             {
                 if (!finishedLevel)
                 {
+                    CameraShakerHandler.Shake(bigShake);
                     playerCamera.DOMove(new Vector3 (playerCamera.position.x, playerCamera.position.y + 3, playerCamera.position.z), 4);
                     Expand();
                     finishedLevel = true;
+                    playerController.canMove = false;
                 }
             }
         }

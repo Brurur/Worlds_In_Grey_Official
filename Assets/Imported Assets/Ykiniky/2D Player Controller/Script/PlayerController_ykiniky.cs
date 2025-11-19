@@ -8,11 +8,11 @@ namespace YkinikY
     {
         [Header("(c) Ykiniky")]
         [Header("Movement")]
-        [SerializeField] bool canMove = true;
-        [SerializeField] bool canJump = true;
+        public bool canMove = true;
+        public bool canJump = true;
 
         [Header("Movement Settings")]
-        [SerializeField] float maxSpeed = 5f;
+        public float maxSpeed = 5f;
         [SerializeField] float acceleration = 12f;
         [SerializeField] float deceleration = 10f;
 
@@ -27,12 +27,16 @@ namespace YkinikY
         [Header("Particle")]
         [SerializeField] ParticleSystem trail;
         [SerializeField] ParticleSystem jumpDust;
- 
+        [SerializeField] ParticleSystem healingParticle;
+        [SerializeField] ParticleSystem damagingParticle;
+
         Rigidbody2D rb;
 
         // Flip (scale-based "paper" flip)
         private bool facingRight = true;
         private bool isFlipping = false;
+        private Audio_Manager audio_Manager;
+
         [Header("Flip Settings")]
         [SerializeField] float flipDuration = 0.18f;      // total time of the flip
         [Range(0.0f, 1.0f)] [SerializeField] float minWidth = 0.05f; // how thin during flip
@@ -43,6 +47,7 @@ namespace YkinikY
 
         void Start()
         {
+            audio_Manager = GameObject.Find("Audio Manager").GetComponent<Audio_Manager>();
             rb = GetComponent<Rigidbody2D>();
             baseLocalScale = transform.localScale;
             // ensure facingRight matches initial localScale
@@ -64,11 +69,16 @@ namespace YkinikY
 
             if (moving && canJump)
             {
+                audio_Manager.StartRolling();
+                float speedPercent = Mathf.Abs(currentSpeed) / maxSpeed;
+                audio_Manager.SetRollingPitch(speedPercent);
+
                 if (!trail.isPlaying)
                     trail.Play();
             }
             else
             {
+                audio_Manager.StopRolling();
                 if (trail.isPlaying)
                     trail.Stop();
             }
@@ -97,6 +107,7 @@ namespace YkinikY
             // Jump
             if ((Input.GetKey(KeyCode.Space) && canJump) || (Input.GetKey(KeyCode.W) && canJump))
             {
+                audio_Manager.playSound(audio_Manager.jump);
                 CameraShakerHandler.Shake(smallShake);
                 jumpDust.Play();
                 canJump = false;
@@ -105,6 +116,7 @@ namespace YkinikY
 
             if (Input.GetButton("Jump") && canJump)
             {
+                audio_Manager.playSound(audio_Manager.jump);
                 CameraShakerHandler.Shake(smallShake);
                 jumpDust.Play();
                 canJump = false;
@@ -234,6 +246,16 @@ namespace YkinikY
                 playerCameraFollow.Zoom();
             }
 
+            if (collision.gameObject.tag == "Healing")
+            {
+                healingParticle.Play();
+            }
+
+            if (collision.gameObject.tag == "Damaging")
+            {
+                damagingParticle.Play();
+            }
+
             if (collision.gameObject.tag == "Pot")
             {
                 playerCameraFollow.zoomedOutVal *= 1.3f;
@@ -242,12 +264,23 @@ namespace YkinikY
 
             if (collision.gameObject.tag == "Sprout")
             {
+                audio_Manager.playSound(audio_Manager.collect);
                 CameraShakerHandler.Shake(smallShake);
             }
         }
 
         private void OnTriggerExit2D(Collider2D collision) 
         {
+            if (collision.gameObject.tag == "Healing")
+            {
+                healingParticle.Stop();
+            }
+
+            if (collision.gameObject.tag == "Damaging")
+            {
+                damagingParticle.Stop();
+            }
+
             if (collision.gameObject.tag == "Text Area")
                 {
                     playerCameraFollow.Unzoom();
