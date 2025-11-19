@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using DG.Tweening;
 
 public class Player_Animation : MonoBehaviour
@@ -26,8 +27,17 @@ public class Player_Animation : MonoBehaviour
     [SerializeField] float idleBreathScale = 0.03f;
     [SerializeField] float idleBreathTilt = 2f;
 
+    [Header("Big Boom!")]
+    [SerializeField] Transform transformMask;
+    [SerializeField] GameObject[] environments;
+    [SerializeField] Volume greenVolume;
+    [SerializeField] Transform playerCamera;
+    [SerializeField] TypeWriter levelFinishedText;
+
     private Vector3 baseScale;
     private Audio_Manager audio_Manager;
+    private CanvasGroup fadeOverlay;
+    private bool finishedLevel = false;
 
     void Start()
     {
@@ -35,6 +45,7 @@ public class Player_Animation : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         baseScale = whole.localScale;
         audio_Manager = GameObject.Find("Audio Manager").GetComponent<Audio_Manager>();
+        fadeOverlay = GameObject.Find("Fade Overlay").GetComponent<CanvasGroup>();
     }
 
     void Update()
@@ -105,8 +116,48 @@ public class Player_Animation : MonoBehaviour
         {
             if (handTiltMultiplier == 20)
             {
-                // Do yo shie
+                if (!finishedLevel)
+                {
+                    playerCamera.DOMove(new Vector3 (playerCamera.position.x, playerCamera.position.y + 3, playerCamera.position.z), 4);
+                    Expand();
+                    finishedLevel = true;
+                }
             }
         }
+    }
+
+    public void Expand()
+    {
+        transformMask.DOScale(new Vector3(2500, 2500, 2500), 4);
+        DOTween.To(() => greenVolume.weight, x => greenVolume.weight = x, 1f, 4);
+        audio_Manager.playSound(audio_Manager.maskTransition);
+        Invoke("FadeIn", 3);
+        Invoke("FadeOut", 4);
+        Invoke("SwitchEnvironment", 4);
+    }
+
+    private void FadeIn()
+    {
+        playerCamera.DOMove(new Vector3 (playerCamera.position.x, playerCamera.position.y, playerCamera.position.z), 15);
+        fadeOverlay.DOFade(1, 1);
+    }
+
+    private void FadeOut()
+    {
+        fadeOverlay.DOFade(0, 1);
+    }
+
+    private void SwitchEnvironment()
+    {
+        transformMask.DOScale(new Vector3(0, 0, 0), 4f);
+        environments[0].SetActive(false); // * This is the Grey Environment.
+        environments[1].SetActive(true); // * This is the Green Environment.
+        Invoke("TypingFinsihedLevel", 1);
+    }
+
+    private void TypingFinsihedLevel()
+    {
+        levelFinishedText.StartTyping();
+        Invoke("FadeIn", 5);
     }
 }

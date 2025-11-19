@@ -4,6 +4,7 @@ public class Audio_Manager : MonoBehaviour
 {
     [SerializeField] AudioSource src;
     public AudioClip maskTransition;
+    public AudioClip typing;
 
     public void playSound(AudioClip sfx)
     {

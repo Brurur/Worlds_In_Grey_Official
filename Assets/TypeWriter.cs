@@ -46,4 +46,10 @@ public class TypeWriter : MonoBehaviour
             }
         } 
     }
+
+    public void StartTyping()
+    {
+        hasBeenPlayed = true;
+        StartCoroutine(TypeAll());
+    }
 }

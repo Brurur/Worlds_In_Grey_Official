@@ -234,6 +234,12 @@ namespace YkinikY
                 playerCameraFollow.Zoom();
             }
 
+            if (collision.gameObject.tag == "Pot")
+            {
+                playerCameraFollow.zoomedOutVal *= 1.3f;
+                playerCameraFollow.Unzoom();
+            }
+
             if (collision.gameObject.tag == "Sprout")
             {
                 CameraShakerHandler.Shake(smallShake);
@@ -245,6 +251,12 @@ namespace YkinikY
             if (collision.gameObject.tag == "Text Area")
                 {
                     playerCameraFollow.Unzoom();
+                }
+
+            if (collision.gameObject.tag == "Pot")
+                {
+                    playerCameraFollow.zoomedOutVal /= 1.3f;
+                    playerCameraFollow.Zoom();
                 }
         }
 
