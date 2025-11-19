@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using FirstGearGames.SmoothCameraShaker;
 
 namespace YkinikY
 {
@@ -20,6 +21,8 @@ namespace YkinikY
         [Header("Camera")]
         [SerializeField] PlayerCameraFollow_ykiniky playerCameraFollow;
         [SerializeField] Vector2 lastCheckpoint;
+        [SerializeField] ShakeData smallShake;
+        // [SerializeField] ShakeData bigShake;
 
         [Header("Particle")]
         [SerializeField] ParticleSystem trail;
@@ -78,11 +81,7 @@ namespace YkinikY
             // ACCELERATION / DECELERATION
             if (input != 0)
             {
-                currentSpeed = Mathf.MoveTowards(
-                    currentSpeed,
-                    input * maxSpeed,
-                    acceleration * Time.deltaTime
-                );
+                currentSpeed = Mathf.MoveTowards(currentSpeed, input * maxSpeed, acceleration * Time.deltaTime);
 
                 // Start flip coroutine instead of instantly changing scale
                 if (input > 0 && !facingRight)
@@ -92,16 +91,13 @@ namespace YkinikY
             }
             else
             {
-                currentSpeed = Mathf.MoveTowards(
-                    currentSpeed,
-                    0f,
-                    deceleration * Time.deltaTime
-                );
+                currentSpeed = Mathf.MoveTowards(currentSpeed, 0f, deceleration * Time.deltaTime);
             }
 
             // Jump
             if ((Input.GetKey(KeyCode.Space) && canJump) || (Input.GetKey(KeyCode.W) && canJump))
             {
+                CameraShakerHandler.Shake(smallShake);
                 jumpDust.Play();
                 canJump = false;
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 6);
@@ -109,6 +105,7 @@ namespace YkinikY
 
             if (Input.GetButton("Jump") && canJump)
             {
+                CameraShakerHandler.Shake(smallShake);
                 jumpDust.Play();
                 canJump = false;
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 6);
@@ -236,14 +233,19 @@ namespace YkinikY
             {
                 playerCameraFollow.Zoom();
             }
+
+            if (collision.gameObject.tag == "Sprout")
+            {
+                CameraShakerHandler.Shake(smallShake);
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision) 
         {
-        if (collision.gameObject.tag == "Text Area")
-            {
-                playerCameraFollow.Unzoom();
-            }
+            if (collision.gameObject.tag == "Text Area")
+                {
+                    playerCameraFollow.Unzoom();
+                }
         }
 
         public void TeleportPlayerX(float playerX)
