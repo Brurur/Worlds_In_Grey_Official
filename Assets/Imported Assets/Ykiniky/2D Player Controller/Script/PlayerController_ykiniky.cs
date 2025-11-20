@@ -269,6 +269,11 @@ namespace YkinikY
                 audio_Manager.playSound(audio_Manager.collect);
                 CameraShakerHandler.Shake(smallShake);
             }
+
+            if (collision.gameObject.tag == "MovingPlat")
+            {
+                gameObject.transform.parent = collision.transform;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision) 
@@ -286,14 +291,22 @@ namespace YkinikY
             }
 
             if (collision.gameObject.tag == "Text Area")
-                {
-                    playerCameraFollow.Unzoom();
-                }
+            {
+                playerCameraFollow.Unzoom();
+            }
 
             if (collision.gameObject.tag == "Pot")
+            {
+                playerCameraFollow.zoomedOutVal /= 1.3f;
+                playerCameraFollow.Zoom();
+            }
+
+            if (collision.gameObject.tag == "MovingPlat")
                 {
-                    playerCameraFollow.zoomedOutVal /= 1.3f;
-                    playerCameraFollow.Zoom();
+                    if (collision.gameObject.activeInHierarchy)
+                    {
+                        gameObject.transform.parent = null;
+                    }
                 }
         }
 

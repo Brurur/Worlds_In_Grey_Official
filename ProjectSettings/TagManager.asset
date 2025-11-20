@@ -9,6 +9,7 @@ TagManager:
   - Pot
   - Healing
   - Damaging
+  - MovingPlat
   layers:
   - Default
   - TransparentFX
