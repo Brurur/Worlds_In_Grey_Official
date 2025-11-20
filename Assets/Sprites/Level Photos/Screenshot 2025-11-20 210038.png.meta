@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 36bab38e2b0ed52488b4f04e1c536b94
+guid: be3e4bc5f25d8ba4d95fa795be0eaa59
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5159616731989238720
-    second: Pabrik 1_0
+      213: -6947911092787544198
+    second: Screenshot 2025-11-20 210038_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pabrik 1_0
+      name: Screenshot 2025-11-20 210038_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1815
-        height: 1416
+        width: 1887
+        height: 647
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 04c9e984beb5568b0800000000000000
-      internalID: -5159616731989238720
+      spriteID: a7ff6673caf049f90800000000000000
+      internalID: -6947911092787544198
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Pabrik 1_0: -5159616731989238720
+      Screenshot 2025-11-20 210038_0: -6947911092787544198
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

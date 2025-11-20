@@ -38,12 +38,14 @@ public class Player_Animation : MonoBehaviour
     [SerializeField] TypeWriter levelFinishedText;
     [SerializeField] ShakeData bigShake;
     [SerializeField] string nextLevelName;
+    [SerializeField] string previousLevelName;
 
     private Vector3 baseScale;
     private Audio_Manager audio_Manager;
     private CanvasGroup fadeOverlay;
     private bool finishedLevel = false;
     private PlayerController_ykiniky playerController;
+    private GameObject energyText, energySymbol;
 
     void Start()
     {
@@ -53,6 +55,8 @@ public class Player_Animation : MonoBehaviour
         audio_Manager = GameObject.Find("Audio Manager").GetComponent<Audio_Manager>();
         fadeOverlay = GameObject.Find("Fade Overlay").GetComponent<CanvasGroup>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController_ykiniky>();
+        energyText = GameObject.Find("Energy Text");
+        energySymbol = GameObject.Find("Energy Symbol");
     }
 
     void Update()
@@ -107,6 +111,17 @@ public class Player_Animation : MonoBehaviour
 
             whole.localPosition = Vector3.Lerp(whole.localPosition, new Vector3(0, idleBob, 0), Time.deltaTime * 3f);
         }
+
+        // ONLY FOR DEVELOPMENT
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            SwitchLevel();
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            PreviousLevel();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -158,6 +173,8 @@ public class Player_Animation : MonoBehaviour
 
     private void SwitchEnvironment()
     {
+        energySymbol.SetActive(false);
+        energyText.SetActive(false);
         transformMask.DOScale(new Vector3(0, 0, 0), 4f);
         environments[0].SetActive(false); // * This is the Grey Environment.
         environments[1].SetActive(true); // * This is the Green Environment.
@@ -174,6 +191,11 @@ public class Player_Animation : MonoBehaviour
     private void SwitchLevel()
     {
         SceneManager.LoadScene(nextLevelName);
+    }
+
+    private void PreviousLevel()
+    {
+        SceneManager.LoadScene(previousLevelName);
     }
 
     public void SwitchLevelImmediately()
