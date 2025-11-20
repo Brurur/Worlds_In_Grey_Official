@@ -18,7 +18,7 @@ public class SubtractEnergy : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             playerEnergy.value = -1;
-            playerEnergy.delay = 0.25f;
+            playerEnergy.delay = 0.15f;
             playerController.maxSpeed = 2;
         }
     }
