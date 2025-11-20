@@ -248,11 +248,13 @@ namespace YkinikY
 
             if (collision.gameObject.tag == "Healing")
             {
+                audio_Manager.StartAura(audio_Manager.healing);
                 healingParticle.Play();
             }
 
             if (collision.gameObject.tag == "Damaging")
             {
+                audio_Manager.StartAura(audio_Manager.damaging);
                 damagingParticle.Play();
             }
 
@@ -273,11 +275,13 @@ namespace YkinikY
         {
             if (collision.gameObject.tag == "Healing")
             {
+                audio_Manager.StopAura();
                 healingParticle.Stop();
             }
 
             if (collision.gameObject.tag == "Damaging")
             {
+                audio_Manager.StopAura();
                 damagingParticle.Stop();
             }
 

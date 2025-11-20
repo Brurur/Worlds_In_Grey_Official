@@ -3,6 +3,7 @@ using UnityEngine.Rendering;
 using DG.Tweening;
 using YkinikY;
 using FirstGearGames.SmoothCameraShaker;
+using UnityEngine.SceneManagement;
 
 public class Player_Animation : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class Player_Animation : MonoBehaviour
     [SerializeField] Transform playerCamera;
     [SerializeField] TypeWriter levelFinishedText;
     [SerializeField] ShakeData bigShake;
+    [SerializeField] string nextLevelName;
 
     private Vector3 baseScale;
     private Audio_Manager audio_Manager;
@@ -166,5 +168,17 @@ public class Player_Animation : MonoBehaviour
     {
         levelFinishedText.StartTyping();
         Invoke("FadeIn", 5);
+        Invoke("SwitchLevel", 6);
+    }
+
+    private void SwitchLevel()
+    {
+        SceneManager.LoadScene(nextLevelName);
+    }
+
+    public void SwitchLevelImmediately()
+    {
+        fadeOverlay.DOFade(1, 1);
+        Invoke("SwitchLevel", 2);
     }
 }
