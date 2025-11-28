@@ -60,23 +60,6 @@ We welcome contributions! Please feel free to submit a Pull Request. For major c
 - **Code**: MIT License - see the [LICENSE](LICENSE) file for details
 - **Game Assets**: All visual assets are protected by copyright and exclusive to this project (reusing assets require explicit permission from us)
 
-## 👤 Author
-
-**Caesarian Lanang Parizano Zaim (Programmer)**
-- Website: [caesarian-porfolio.vercel.app](https://caesarian-portfolio.vercel.app/)
-- Instagram: [@ryann_brurur](https://www.instagram.com/ryann_brurur)
-
-**Midori Harahap (Game Artist)**
-- Instagram: [@midoistory](https://www.instagram.com/midoistory)
-
-**Muhamad Fatir Kurniawan (Project Leader, Researcher)**
-- Website: [onefatir.dev](https://onefatir.dev/)
-- Email: me@onefatir.dev
-- GitHub: [@onefatir](https://github.com/onefatir)
-
-**Muhammad Yusuf Baihaqi Bawono (Storyboard &  Game Designer)**
-- Instagram: [@suf.baihaqi](https://www.instagram.com/suf.baihaqi/)
-
 ## 🐛 Issues & Support
 
 If you encounter any issues or have questions, please [open an issue](https://github.com/Brurur/Worlds_In_Grey_Official/issues) on GitHub.
